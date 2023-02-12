@@ -5,8 +5,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   template: `
     <h1 mat-dialog-title>Upload completo!</h1>
-    <div mat-dialog-actions>
-        <button mat-button (click)="matDialogModule.close()">OK</button>
+    <div mat-dialog-actions style="text-align: center;">
+        <button mat-button  (click)="matDialogModule.close()">OK</button>
     </div>
   `
 })

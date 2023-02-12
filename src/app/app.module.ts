@@ -10,12 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FileUploadService } from './file-uploader.service';
+import { FileUploader2Component } from './file-uploader2/file-uploader2.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FileUploader1Component
+    FileUploader1Component,
+    FileUploader2Component
   ],
   imports: [
     BrowserModule,

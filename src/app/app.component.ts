@@ -27,32 +27,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {}
 
-
-  onUpload() {
-
-    console.log("uploading...");
-
-    const formData = new FormData();
-
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      formData.append('file', this.selectedFiles[i]);
-      console.log("file:"+this.selectedFiles[i]);
-    }
-
-    console.log("enviado para o BackEnd");
-    // enviar para o backend
-    this.http.post<any>('http://localhost:8080/upload', formData).pipe(
-      map(
-        (res) => {
-          console.log(res);
-
-        },
-        (err: any) => {
-          console.log(err);
-          
-        }
-      )
-    );
-
-  }
+    
 }
