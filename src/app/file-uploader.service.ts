@@ -4,18 +4,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
+  
   private endpoint = 'http://localhost:8080/upload';
 
   constructor(private http: HttpClient) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     console.log(file);
-
 
     const formData = new FormData();
     formData.append('file', file, file.name);
