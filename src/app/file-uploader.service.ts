@@ -27,7 +27,7 @@ export class FileUploadService {
     
     this.http.request(req).subscribe((event: HttpEvent<any>) => {
       if (event.type === HttpEventType.UploadProgress) {
-        //console.log(`Upload progress: ${Math.round(100 * event.loaded / event.total)}`);
+        console.log(`Upload progress: ${Math.round(100 * event.loaded / event.total!)}%`);
       } else if (event.type === HttpEventType.Response) {
         console.log(`Upload completed!`);
       }

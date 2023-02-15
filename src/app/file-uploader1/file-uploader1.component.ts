@@ -11,6 +11,7 @@ import { FileUploadService } from '../file-uploader.service';
   templateUrl: './file-uploader1.component.html',
   styleUrls: ['./file-uploader1.component.css'],
 })
+
 export class FileUploader1Component implements OnInit {
   selectedFiles: File[] = [];
   uploadProgress = 0;
@@ -41,22 +42,12 @@ export class FileUploader1Component implements OnInit {
     const reader = new FileReader();
     reader.onload = (event) => {
 
-      // Filter in XML - precoMedio with secret data
-      const xml = (event.target as any).result;
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xml, 'application/xml');
-      const precoMedioNode = xmlDoc.querySelectorAll('precoMedio > valor');
-      const precoMedioNodes = Array.from(precoMedioNode);
-      for (const node of precoMedioNodes) {
-        node.textContent = '0.0';
-      }
-      //console.log("TRANSFORMED XML--> ", new XMLSerializer().serializeToString(xmlDoc));
-      const alteredXML = new XMLSerializer().serializeToString(xmlDoc);
+
+      const alteredXML = this.filterXMLData((event.target as any).result, 'precoMedio', '0.0')
       this.selectedFiles[0] = new File([alteredXML],this.selectedFiles[0].name);
 
       //UPLOAD changed file
-      this.fileUploaderService
-        .upload(this.selectedFiles[0])
+      this.fileUploaderService.upload(this.selectedFiles[0])
         .pipe(
           map((event) => {
             switch (event.type) {
@@ -89,5 +80,21 @@ export class FileUploader1Component implements OnInit {
         });
     };
     reader.readAsText(this.selectedFiles[0]);
+
   }
+
+  filterXMLData(xmlString: string, tagName: string, valueToReplace: string): string {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+    const nodes = xmlDoc.querySelectorAll(`${tagName} > valor`);
+    const nodesArr = Array.from(nodes);
+    for (const node of nodesArr) {
+      node.textContent = valueToReplace;
+    }
+
+    //console.log("TRANSFORMED XML--> ", new XMLSerializer().serializeToString(xmlDoc));
+    return new XMLSerializer().serializeToString(xmlDoc);
+  }
+
+  
 }
